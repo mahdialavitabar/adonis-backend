@@ -1,5 +1,5 @@
 # Use the official Node.js image as the parent image
-FROM node:14-slim
+FROM node:14
 
 # Set the working directory
 WORKDIR /app
@@ -9,6 +9,9 @@ COPY package*.json ./
 
 # Install the dependencies
 RUN npm install
+
+# Build app
+RUN npm run build
 
 # Copy the rest of the application source code to the working directory
 COPY . .
