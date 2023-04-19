@@ -14,7 +14,7 @@ RUN npm install
 COPY . .
 
 # Expose the port that the Adonis app is running on
-EXPOSE 3333
+EXPOSE 50360
 
 # Start the app with the PostgreSQL database
 CMD [ "npm", "run", "dev" ]
