@@ -1,20 +1,22 @@
-# Use the official Node.js image as the parent image
-FROM node:14
+FROM node:16.17.0-alpine
 
-# Set the working directory
-WORKDIR /app
+# Set working directory
+WORKDIR /usr/src/app
 
-# Copy the package.json and package-lock.json file to the working directory
+# Install dependencies
 COPY package*.json ./
+RUN npm ci --production
 
-# Install the dependencies
-RUN npm install
-
-# Copy the rest of the application source code to the working directory
+# Copy app source code
 COPY . .
 
-# Expose the port that the Adonis app is running on
-EXPOSE 50360
+# Build app
+RUN npm run build --production
 
-# Start the app with the PostgreSQL database
-CMD [ "npm", "run", "dev" ]
+COPY ./.env ./build
+
+# Expose port
+EXPOSE 3333
+
+# Start app
+CMD ["node", "./build/server.js"]
