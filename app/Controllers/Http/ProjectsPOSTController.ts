@@ -7,6 +7,7 @@ export default class ProjectsController {
   public async projects({ request, response }: HttpContextContract) {
     const projects = request.body();
     const purpose = request.only(["purpose"]);
+    //
 
     // Check if a project with the same purpose already exists
     const existingProject = await Database.from("projects")
